@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>New Band</title>
+    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
 </head>
 <body>
-
+<h1>Music Archives</h1>
+<form method="GET" th:action="@{/process_new}" th:object="${band}">
+    <input type="hidden" th:field="*{id}"/>
+    Name: <input th:field="*{name}" type="text" name="name" placeholder="Enter band name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+    <br><br>
+    Founded: <input th:field="*{founded}" type="date" name="founded" placeholder="Enter founded date">
+    <span th:if="${#fields.hasErrors('founded')}" th:errors="*{founded}" style="color: red;"></span>
+    <br><br>
+    Dissolved: <input th:field="*{dissolved}" type="date" name="dissolved" placeholder="Enter dissolved date">
+    <span th:if="${#fields.hasErrors('dissolved')}" th:errors="*{dissolved}" style="color: red;"></span>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>
