@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Set;
-import java.util.List;
 
 import java.time.LocalDate;
 
@@ -37,7 +36,7 @@ public class Band {
             name = "band_members",
             joinColumns = @JoinColumn(name = "band_id"),
             inverseJoinColumns = @JoinColumn(name = "member_id"))
-    private Set<Member> member;
+    private Set<Member> members;
 
     public void setId(int id) {
         this.id = id;

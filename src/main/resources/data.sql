@@ -33,11 +33,14 @@ VALUES ('Robert Trujillo');
 INSERT INTO band_members (band_id, member_id)
 VALUES (1, 4);
 
-insert INTO album (band_id, name, released)
+INSERT INTO album (band_id, name, released)
 VALUES (1, 'Ride The Lightning', '1984-4-9');
 
-insert INTO album (band_id, name, released)
+INSERT INTO album (band_id, name, released)
 VALUES (1, 'Master of Puppets', '1986-3-1');
 
-insert INTO album (band_id, name, released)
+INSERT INTO album (band_id, name, released)
 VALUES (1, '...and Justice for All', '1988-12-7');
+
+INSERT INTO song (album_id, name, length)
+VALUES (1, 'For Whom the Bell Tolls', '00:05:10')

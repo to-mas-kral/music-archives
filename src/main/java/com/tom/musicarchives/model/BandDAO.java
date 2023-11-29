@@ -12,4 +12,8 @@ public interface BandDAO {
     void deleteBand(int id);
 
     List<Band> getAllBands();
+
+    List<Album> getBandAlbums(int id);
+
+    List<Member> getBandMembers(int id);
 }

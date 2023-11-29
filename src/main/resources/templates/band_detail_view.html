@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${band.name}"></title>
+    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
+</head>
+<body>
+
+<a href="/bands">
+    <button>Back to bands</button>
+</a>
+
+<h1 th:text="${band.name}"></h1>
+
+Founded: <span th:text="${band.founded}"></span><br>
+<span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
+
+<h1>Albums</h1>
+
+<div th:each="album : ${albums}">
+    <a th:text="${album.name}" th:href="@{/album/detail/{id}(id=${album.id})}"></a>
+</div>
+
+<h1>Members</h1>
+
+<div th:each="member : ${members}">
+    <span th:text="${member.name}"></span>
+</div>
+
+</body>
+</html>

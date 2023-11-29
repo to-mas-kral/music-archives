@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${album.band.name}"></title>
+    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
+</head>
+<body>
+
+<a th:href="@{/band/detail/{id}(id=${album.band.id})}">
+    <button th:text="${album.band.name}"></button>
+</a>
+
+<h1 th:text="${album.name}"></h1>
+
+Released: <span th:text="${album.released}"></span><br>
+
+<h1>Songs</h1>
+
+<div th:each="song : ${album.songs}">
+    <div>
+        <span th:text="${song.name}" th:href="@{/album/{id}(id=${album.id})}"></span>
+        <span th:text="${song.length}"></span>
+    </div>
+</div>
+
+</body>
+</html>

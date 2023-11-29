@@ -63,12 +63,25 @@ public class BandController {
         return out;
     }*/
 
-    @GetMapping("/bands_view")
+    @GetMapping("/bands")
     public String allBands(Model model) {
         var bands = dao.getAllBands();
         model.addAttribute("bands", bands);
 
         return "bands_view";
+    }
+
+    @GetMapping("/band/detail/{id}")
+    public String bandDetail(Model model, @PathVariable int id) {
+        var band = dao.getBandById(id);
+        var albums = dao.getBandAlbums(id);
+        var members = dao.getBandMembers(id);
+
+        model.addAttribute("band", band);
+        model.addAttribute("albums", albums);
+        model.addAttribute("members", members);
+
+        return "band_detail_view";
     }
 
     @GetMapping("/new")
@@ -89,7 +102,7 @@ public class BandController {
             dao.updateBand(band);
         }
 
-        return new RedirectView("/bands_view");
+        return new RedirectView("/bands");
     }
 
     /*@GetMapping("/update/{id}")

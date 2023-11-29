@@ -15,9 +15,17 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    public Band getBand() {
+        return band;
+    }
+
     @ManyToOne
     @JoinColumn(name = "band_id", nullable = false)
     private Band band;
+
+    public Set<Song> getSongs() {
+        return songs;
+    }
 
     @OneToMany(mappedBy = "album")
     private Set<Song> songs;

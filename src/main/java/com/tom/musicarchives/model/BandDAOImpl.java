@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,6 +46,28 @@ public class BandDAOImpl implements BandDAO {
     @Override
     public List<Band> getAllBands() {
         var query = entityManager.createQuery("FROM Band", Band.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Album> getBandAlbums(int band_id) {
+        var query = entityManager.createQuery("FROM Album a WHERE a.band.id=:band_id", Album.class);
+        query.setParameter("band_id", band_id);
+        return query.getResultList();
+    }
+
+    //@Override
+    //List<Member> getBandMembers(int id) {
+    //    var query = entityManager.createQuery("FROM  a WHERE a.band.id=:band_id", Album.class);
+    //    //query.setParameter("band_id", band_id);
+    //    //return query.getResultList();
+    //}
+
+    @Override
+    public List<Member> getBandMembers(int band_id) {
+        var band = getBandById(band_id);
+        var query = entityManager.createQuery("SELECT m FROM Band b JOIN b.members m WHERE b.id = :band_id", Member.class);
+        query.setParameter("band_id", band_id);
         return query.getResultList();
     }
 }

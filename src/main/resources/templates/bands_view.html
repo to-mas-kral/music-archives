@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New Band</title>
+    <title>All Bands</title>
     <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
 </head>
 <body>
 <h1>Bands</h1>
 
 <div th:each="band : ${bands}">
-    <h2 th:text="${band.name}"></h2>
+    <a th:text="${band.name}" th:href="@{/band/detail/{id}(id=${band.id})}"></a>
     Founded: <span th:text="${band.founded}"></span><br>
     <span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
 </div>
