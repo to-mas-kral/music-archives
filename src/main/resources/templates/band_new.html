@@ -7,10 +7,16 @@
 </head>
 <body>
 <h1>Music Archives</h1>
-<form method="GET" th:action="@{/process_new}" th:object="${band}">
+<form method="GET" th:action="@{/band/process_new}" th:object="${band}">
     <input type="hidden" th:field="*{id}"/>
     Name: <input th:field="*{name}" type="text" name="name" placeholder="Enter band name">
     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+    <br><br>
+    Genre: <input th:field="*{genre}" type="text" name="genre" placeholder="Enter genre">
+    <span th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}" style="color: red;"></span>
+    <br><br>
+    Country: <input th:field="*{country}" type="text" name="country" placeholder="Enter country">
+    <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" style="color: red;"></span>
     <br><br>
     Founded: <input th:field="*{founded}" type="date" name="founded" placeholder="Enter founded date">
     <span th:if="${#fields.hasErrors('founded')}" th:errors="*{founded}" style="color: red;"></span>
@@ -18,7 +24,7 @@
     Dissolved: <input th:field="*{dissolved}" type="date" name="dissolved" placeholder="Enter dissolved date">
     <span th:if="${#fields.hasErrors('dissolved')}" th:errors="*{dissolved}" style="color: red;"></span>
     <br><br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Add band">
 </form>
 </body>
 </html>

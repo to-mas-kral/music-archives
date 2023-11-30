@@ -8,11 +8,34 @@
 <body>
 <h1>Bands</h1>
 
+<a href="/band/new">
+    <button>
+        Add new band
+    </button>
+</a>
+
 <div th:each="band : ${bands}">
     <a th:text="${band.name}" th:href="@{/band/detail/{id}(id=${band.id})}"></a>
     Founded: <span th:text="${band.founded}"></span><br>
     <span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
 </div>
+
+<h1>Search bands</h1>
+<form method="GET" th:action="@{/band/search}" th:object="${band_search_query}">
+    Genre: <input th:field="*{genre}" type="text" name="name" placeholder="Genre">
+    <span th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}" style="color: red;"></span>
+    <br><br>
+    Country: <input th:field="*{country}" type="text" name="founded" placeholder="Country">
+    <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" style="color: red;"></span>
+    <br><br>
+    <input type="submit" value="Search">
+</form>
+
+<a href="/band/random">
+    <button>
+        Random band
+    </button>
+</a>
 
 </body>
 </html>

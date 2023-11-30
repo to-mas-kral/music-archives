@@ -1,9 +1,9 @@
-INSERT INTO band (name, founded)
-VALUES ('Metallica', '1981-6-4');
-INSERT INTO band (name, founded)
-VALUES ('Iron Maiden', '1967-2-3');
-INSERT INTO band (name, founded)
-VALUES ('Nightwish', '1967-3-5');
+INSERT INTO band (name, founded, genre, country)
+VALUES ('Metallica', '1981-6-4', 'thrash metal', 'USA');
+INSERT INTO band (name, founded, genre, country)
+VALUES ('Iron Maiden', '1967-2-3', 'heavy metal', 'Great Britain');
+INSERT INTO band (name, founded, genre, country)
+VALUES ('Nightwish', '1967-3-5', 'symphonic metal', 'Finland');
 
 --
 -- Metallica

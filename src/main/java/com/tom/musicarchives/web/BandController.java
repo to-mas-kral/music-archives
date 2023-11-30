@@ -3,6 +3,7 @@ package com.tom.musicarchives.web;
 import com.tom.musicarchives.model.Band;
 import com.tom.musicarchives.model.BandDAO;
 
+import com.tom.musicarchives.utils.BandSearchQuery;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class BandController {
@@ -66,7 +70,9 @@ public class BandController {
     @GetMapping("/bands")
     public String allBands(Model model) {
         var bands = dao.getAllBands();
+        var band_search_query = new BandSearchQuery();
         model.addAttribute("bands", bands);
+        model.addAttribute("band_search_query", band_search_query);
 
         return "bands_view";
     }
@@ -84,13 +90,13 @@ public class BandController {
         return "band_detail_view";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/band/new")
     public String newBand(Model model) {
         model.addAttribute("band", new Band());
-        return "new";
+        return "band_new";
     }
 
-    @GetMapping("/process_new")
+    @GetMapping("/band/process_new")
     public RedirectView processForm(@Valid @ModelAttribute("band") Band band, BindingResult br, Model model) {
         if (br.hasErrors()) {
             return new RedirectView("/new");
@@ -103,6 +109,23 @@ public class BandController {
         }
 
         return new RedirectView("/bands");
+    }
+
+    @GetMapping("/band/search")
+    public String bandSearch(@Valid @ModelAttribute("band") BandSearchQuery bandSearchQuery, Model model) {
+        var filtered_bands = dao.searchBands(bandSearchQuery);
+        model.addAttribute("bands", filtered_bands);
+
+        return "bands_search_view";
+    }
+
+    @GetMapping("/band/random")
+    public String bandSearch(Model model) {
+        List<Band> bands = new ArrayList<Band>();
+        bands.add(dao.getRandomBand());
+        model.addAttribute("bands", bands);
+
+        return "bands_search_view";
     }
 
     /*@GetMapping("/update/{id}")

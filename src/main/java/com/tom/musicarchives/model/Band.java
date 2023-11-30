@@ -38,6 +38,46 @@ public class Band {
             inverseJoinColumns = @JoinColumn(name = "member_id"))
     private Set<Member> members;
 
+    @NotNull
+    @Column(name = "genre")
+    private String genre;
+
+    @NotNull
+    @Column(name = "country")
+    private String country;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
+    }
+
+    public Set<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Set<Member> members) {
+        this.members = members;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -13,6 +13,9 @@
 
 <h1 th:text="${band.name}"></h1>
 
+<span th:text="${band.genre}"></span><br>
+<span th:text="${band.country}"></span><br>
+
 Founded: <span th:text="${band.founded}"></span><br>
 <span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
 

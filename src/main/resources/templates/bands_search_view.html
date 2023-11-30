@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Bands</title>
+    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
+</head>
+<body>
+
+<a href="/bands">
+    <button>Back to bands</button>
+</a>
+
+<h1>Filtered bands</h1>
+
+<div th:each="band : ${bands}">
+    <a th:text="${band.name}" th:href="@{/band/detail/{id}(id=${band.id})}"></a>
+    Founded: <span th:text="${band.founded}"></span><br>
+    <span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
+</div>
+
+</body>
+</html>

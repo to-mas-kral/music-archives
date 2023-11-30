@@ -1,5 +1,7 @@
 package com.tom.musicarchives.model;
 
+import com.tom.musicarchives.utils.BandSearchQuery;
+
 import java.util.List;
 
 public interface BandDAO {
@@ -16,4 +18,8 @@ public interface BandDAO {
     List<Album> getBandAlbums(int id);
 
     List<Member> getBandMembers(int id);
+
+    List<Band> searchBands(BandSearchQuery bandSearchQuery);
+
+    Band getRandomBand();
 }
