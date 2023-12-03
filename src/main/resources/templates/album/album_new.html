@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Album</title>
+    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
+</head>
+<body>
+<h1>Music Archives</h1>
+<form method="GET" th:action="@{/album/process_new/{band_id}(band_id=${band_id})}" th:object="${album}">
+    <input type="hidden" th:field="*{id}"/>
+    Name: <input th:field="*{name}" type="text" name="name" placeholder="Enter band name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+    <br><br>
+    Released: <input th:field="*{released}" type="date" name="released" placeholder="Enter released date">
+    <span th:if="${#fields.hasErrors('released')}" th:errors="*{released}" style="color: red;"></span>
+    <br><br>
+    <input type="submit" value="Add band">
+</form>
+</body>
+</html>

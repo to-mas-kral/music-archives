@@ -10,7 +10,7 @@ import java.util.List;
 public interface AlbumDAO {
     Album getAlbumById(int id);
 
-    void saveAlbum(Album album);
+    void saveAlbum(Album album, int band_id);
 
     void updateAlbum(Album album);
 

@@ -11,6 +11,12 @@
     <button>Back to bands</button>
 </a>
 
+<a th:href="@{/album/new/{band_id}(band_id=${band.id})}">
+    <button>
+        Add new album
+    </button>
+</a>
+
 <h1 th:text="${band.name}"></h1>
 
 <span th:text="${band.genre}"></span><br>

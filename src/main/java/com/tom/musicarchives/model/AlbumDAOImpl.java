@@ -23,7 +23,10 @@ public class AlbumDAOImpl implements AlbumDAO {
 
     @Override
     @Transactional
-    public void saveAlbum(Album album) {
+    public void saveAlbum(Album album, int band_id) {
+        Band band = entityManager.getReference(Band.class, band_id);
+        album.setBand(band);
+
         entityManager.persist(album);
     }
 

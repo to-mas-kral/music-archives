@@ -24,49 +24,6 @@ public class BandController {
         this.dao = dao;
     }
 
-    /*@GetMapping("/user/{id}")
-    @ResponseBody
-    public String userDetail(@PathVariable int id){
-        return dao.getUserById(id).toString();
-    }
-
-    @GetMapping("/delete/{id}")
-    @ResponseBody
-    public String userDelete(@PathVariable int id){
-        try{
-            dao.deleteUser(id);
-            return "User deleted.";
-        }catch (Exception e){
-            return "User does not exist.";
-        }
-    }*/
-
-    /*@GetMapping("/bands")
-    @ResponseBody
-    public String bands(){
-        Random r = new Random();
-
-        Band u = dao.getBandById(1);
-
-        Band post = new Band();
-        post.setText("Test " + String.valueOf(r.nextInt()));
-
-        post.setUser(u);
-        u.addPost(post);
-
-        dao.saveUser(u);
-
-        List<Post> posts = dao.getPostsByUser(1);
-
-        String out = "";
-
-        for(Post p : posts){
-            out += p.getText() + "<br>";
-        }
-
-        return out;
-    }*/
-
     @GetMapping("/bands")
     public String allBands(Model model) {
         var bands = dao.getAllBands();
@@ -74,7 +31,7 @@ public class BandController {
         model.addAttribute("bands", bands);
         model.addAttribute("band_search_query", band_search_query);
 
-        return "bands_view";
+        return "band/bands_view";
     }
 
     @GetMapping("/band/detail/{id}")
@@ -87,19 +44,19 @@ public class BandController {
         model.addAttribute("albums", albums);
         model.addAttribute("members", members);
 
-        return "band_detail_view";
+        return "band/band_detail_view";
     }
 
     @GetMapping("/band/new")
     public String newBand(Model model) {
         model.addAttribute("band", new Band());
-        return "band_new";
+        return "band/band_new";
     }
 
     @GetMapping("/band/process_new")
     public RedirectView processForm(@Valid @ModelAttribute("band") Band band, BindingResult br, Model model) {
         if (br.hasErrors()) {
-            return new RedirectView("/new");
+            return new RedirectView("/band/new");
         }
 
         if (band.getId() == 0) {
@@ -116,7 +73,7 @@ public class BandController {
         var filtered_bands = dao.searchBands(bandSearchQuery);
         model.addAttribute("bands", filtered_bands);
 
-        return "bands_search_view";
+        return "band/bands_search_view";
     }
 
     @GetMapping("/band/random")
@@ -125,7 +82,7 @@ public class BandController {
         bands.add(dao.getRandomBand());
         model.addAttribute("bands", bands);
 
-        return "bands_search_view";
+        return "band/bands_search_view";
     }
 
     /*@GetMapping("/update/{id}")

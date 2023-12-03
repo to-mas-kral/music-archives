@@ -1,6 +1,7 @@
 package com.tom.musicarchives.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -30,7 +31,7 @@ public class Album {
     @OneToMany(mappedBy = "album")
     private Set<Song> songs;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
@@ -61,5 +62,13 @@ public class Album {
 
     public int getId() {
         return id;
+    }
+
+    public void setBand(Band band) {
+        this.band = band;
+    }
+
+    public void setSongs(Set<Song> songs) {
+        this.songs = songs;
     }
 }

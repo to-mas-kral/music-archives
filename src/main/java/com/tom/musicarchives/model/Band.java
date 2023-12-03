@@ -1,6 +1,7 @@
 package com.tom.musicarchives.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -16,9 +17,9 @@ public class Band {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @NotNull
@@ -38,11 +39,11 @@ public class Band {
             inverseJoinColumns = @JoinColumn(name = "member_id"))
     private Set<Member> members;
 
-    @NotNull
+    @NotBlank
     @Column(name = "genre")
     private String genre;
 
-    @NotNull
+    @NotBlank
     @Column(name = "country")
     private String country;
 
