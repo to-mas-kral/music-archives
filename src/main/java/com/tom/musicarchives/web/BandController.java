@@ -24,6 +24,11 @@ public class BandController {
         this.dao = dao;
     }
 
+    @GetMapping("/")
+    public RedirectView home(Model model) {
+        return new RedirectView("/bands");
+    }
+
     @GetMapping("/bands")
     public String allBands(Model model) {
         var bands = dao.getAllBands();
@@ -51,6 +56,21 @@ public class BandController {
     public String newBand(Model model) {
         model.addAttribute("band", new Band());
         return "band/band_new";
+    }
+
+    @GetMapping("/band/edit/{id}")
+    public String editBand(Model model, @PathVariable int id) {
+        var band = dao.getBandById(id);
+        model.addAttribute("band", band);
+
+        return "band/band_new";
+    }
+
+    @GetMapping("/band/delete/{id}")
+    public RedirectView deleteBand(Model model, @PathVariable int id) {
+        dao.deleteBand(id);
+
+        return new RedirectView("/bands");
     }
 
     @GetMapping("/band/process_new")
@@ -84,24 +104,4 @@ public class BandController {
 
         return "band/bands_search_view";
     }
-
-    /*@GetMapping("/update/{id}")
-    public String updateUser(Model model, @PathVariable int id){
-        try {
-            User user = dao.getUserById(id);
-            model.addAttribute("user", user);
-            model.addAttribute("eyeColors", eyeColors);
-            model.addAttribute("genders", genders);
-            return "new";
-        }catch (Exception e){
-            return "error";
-        }
-    }*/
-
-
-    /*@InitBinder
-    public void initBinder(WebDataBinder db){
-        StringTrimmerEditor e = new StringTrimmerEditor(true);
-        db.registerCustomEditor(String.class, e);
-    }*/
 }

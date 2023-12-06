@@ -1,41 +1,61 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>All Bands</title>
-    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
-</head>
-<body>
-<h1>Bands</h1>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{partials/head}"></head>
+<nav th:replace="~{partials/navbar}"></nav>
 
-<a href="/band/new">
-    <button>
-        Add new band
-    </button>
-</a>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <h1 class="pt-2 text-center">Bands</h1>
+    <hr>
 
-<div th:each="band : ${bands}">
-    <a th:text="${band.name}" th:href="@{/band/detail/{id}(id=${band.id})}"></a>
-    Founded: <span th:text="${band.founded}"></span><br>
-    <span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
-</div>
+    <div class="pt-2 text-center">
+        <a href="/band/new">
+            <button class="pt-2 text-center btn btn-success">
+                Add new band
+            </button>
+        </a>
+    </div>
 
-<h1>Search bands</h1>
-<form method="GET" th:action="@{/band/search}" th:object="${band_search_query}">
-    Genre: <input th:field="*{genre}" type="text" name="name" placeholder="Genre">
-    <span th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}" style="color: red;"></span>
-    <br><br>
-    Country: <input th:field="*{country}" type="text" name="founded" placeholder="Country">
-    <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" style="color: red;"></span>
-    <br><br>
-    <input type="submit" value="Search">
-</form>
+    <div class="container" th:each="band : ${bands}">
+        <div class="d-flex">
+            <h2 class="me-auto">
+                <a class="text-dark text-decoration-none" th:text="${band.name}"
+                   th:href="@{/band/detail/{band_id}(band_id=${band.id})}"></a>
+            </h2>
 
-<a href="/band/random">
-    <button>
-        Random band
-    </button>
-</a>
+            <form class="me-2" th:action="@{/band/edit/{band_id}(band_id=${band.id})}" method="GET">
+                <button type="submit" class="btn btn-primary">Edit</button>
+            </form>
 
+            <form class="me-2" th:action="@{/band/delete/{band_id}(band_id=${band.id})}" method="GET">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <h1 class="mt-5 pt-2 text-center">Search bands</h1>
+    <div class="container">
+        <div class="mt-5 pt-2 text-center">
+            <form method="GET" th:action="@{/band/search}" th:object="${band_search_query}">
+                Genre: <input th:field="*{genre}" type="text" name="name" placeholder="Genre">
+                <span th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}" style="color: red;"></span>
+                <br><br>
+                Country: <input th:field="*{country}" type="text" name="founded" placeholder="Country">
+                <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" style="color: red;"></span>
+                <br><br>
+                <input type="submit" value="Search" class="btn btn-success">
+            </form>
+
+            <a href="/band/random">
+                <button class="btn btn-success">
+                    Random band
+                </button>
+            </a>
+        </div>
+    </div>
+
+</main>
+<nav th:replace="~{partials/footer}"></nav>
 </body>
 </html>

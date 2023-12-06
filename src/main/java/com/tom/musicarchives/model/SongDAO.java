@@ -5,7 +5,7 @@ import java.util.List;
 public interface SongDAO {
     Song getSongById(int id);
 
-    void saveSong(Song song);
+    void saveSong(Song song, int id);
 
     void updateSong(Song song);
 

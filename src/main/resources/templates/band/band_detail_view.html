@@ -1,41 +1,45 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${band.name}"></title>
-    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
-</head>
-<body>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{partials/head}"></head>
+<nav th:replace="~{partials/navbar}"></nav>
 
-<a href="/bands">
-    <button>Back to bands</button>
-</a>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
 
-<a th:href="@{/album/new/{band_id}(band_id=${band.id})}">
-    <button>
-        Add new album
-    </button>
-</a>
+    <div class="container">
+        <h1 th:text="${band.name}" class="text-center"></h1>
+        <hr>
 
-<h1 th:text="${band.name}"></h1>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2><br></h2>
+                <b>Genre:</b> <span th:text="${band.genre}"></span><br>
+                <b>Country:</b> <span th:text="${band.country}"></span><br>
+                <b>Founded:</b> <span th:text="${band.founded}"></span><br>
+                <span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
+            </div>
 
-<span th:text="${band.genre}"></span><br>
-<span th:text="${band.country}"></span><br>
+            <div>
+                <h2>Albums</h2>
+                <div th:each="album : ${albums}">
+                    <a th:text="${album.name}" th:href="@{/album/detail/{id}(id=${album.id})}"></a>
+                </div>
+            </div>
 
-Founded: <span th:text="${band.founded}"></span><br>
-<span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
+            <div>
+                <h2>Members</h2>
+                <div th:each="member : ${members}">
+                    <span th:text="${member.name}"></span>
+                </div>
+            </div>
+        </div>
 
-<h1>Albums</h1>
-
-<div th:each="album : ${albums}">
-    <a th:text="${album.name}" th:href="@{/album/detail/{id}(id=${album.id})}"></a>
-</div>
-
-<h1>Members</h1>
-
-<div th:each="member : ${members}">
-    <span th:text="${member.name}"></span>
-</div>
-
+        <a th:href="@{/album/new/{band_id}(band_id=${band.id})}">
+            <button class="btn btn-success">
+                Add new album
+            </button>
+        </a>
+    </div>
+</main>
+<nav th:replace="~{partials/footer}"></nav>
 </body>
 </html>

@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>All Bands</title>
-    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
-</head>
-<body>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{partials/head}"></head>
+<nav th:replace="~{partials/navbar}"></nav>
 
-<a href="/bands">
-    <button>Back to bands</button>
-</a>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <h1 class="mt-5 pt-2 text-center">Bands</h1>
+    <hr>
 
-<h1>Filtered bands</h1>
-
-<div th:each="band : ${bands}">
-    <a th:text="${band.name}" th:href="@{/band/detail/{id}(id=${band.id})}"></a>
-    Founded: <span th:text="${band.founded}"></span><br>
-    <span th:if="${band.dissolved != null}">Dissolved: <span th:text="${band.dissolved}"></span><br></span>
-</div>
-
+    <div class="container" th:each="band : ${bands}">
+        <h2 class="me-auto text-center">
+            <a class="text-dark text-decoration-none" th:text="${band.name}"
+               th:href="@{/band/detail/{band_id}(band_id=${band.id})}"></a>
+        </h2>
+    </div>
+</main>
+<nav th:replace="~{partials/footer}"></nav>
 </body>
 </html>

@@ -1,0 +1,30 @@
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{partials/head}"></head>
+<nav th:replace="~{partials/navbar}"></nav>
+
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <h1 class="text-center pb-2">Add new song</h1>
+
+    <div class="container text-center">
+        <form method="GET" th:action="@{/song/process_new/{album_id}(album_id=${album_id})}" th:object="${song}">
+            <input type="hidden" th:field="*{id}"/>
+            Name: <input th:field="*{name}" type="text" name="name" placeholder="Enter song name">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+            <br><br>
+            Length: <input th:field="*{length}" type="time" name="length" placeholder="Enter length">
+            <span th:if="${#fields.hasErrors('length')}" th:errors="*{length}" style="color: red;"></span>
+            <br><br>
+            Order in album: <input th:field="*{orderInAlbum}" type="number" name="orderInAlbum"
+                                   placeholder="Enter orderInAlbum">
+            <span th:if="${#fields.hasErrors('orderInAlbum')}" th:errors="*{orderInAlbum}" style="color: red;"></span>
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</main>
+<nav th:replace="~{partials/footer}"></nav>
+</body>
+
+</html>
+

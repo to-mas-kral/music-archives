@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
 
 import java.util.Set;
 
@@ -29,9 +30,11 @@ public class Band {
     @Column(name = "dissolved")
     private LocalDate dissolved;
 
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(mappedBy = "band")
     private Set<Album> albums;
 
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToMany
     @JoinTable(
             name = "band_members",

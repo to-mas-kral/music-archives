@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,12 +26,14 @@ public class Album {
     @JoinColumn(name = "band_id", nullable = false)
     private Band band;
 
-    public Set<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     @OneToMany(mappedBy = "album")
-    private Set<Song> songs;
+    @OrderBy("orderInAlbum")
+    private List<Song> songs;
 
     @NotBlank
     @Size(min = 1, max = 100)
@@ -68,7 +72,7 @@ public class Album {
         this.band = band;
     }
 
-    public void setSongs(Set<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
 }

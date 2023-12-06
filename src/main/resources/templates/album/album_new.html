@@ -1,21 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>New Album</title>
-    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
-</head>
-<body>
-<h1>Music Archives</h1>
-<form method="GET" th:action="@{/album/process_new/{band_id}(band_id=${band_id})}" th:object="${album}">
-    <input type="hidden" th:field="*{id}"/>
-    Name: <input th:field="*{name}" type="text" name="name" placeholder="Enter band name">
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
-    <br><br>
-    Released: <input th:field="*{released}" type="date" name="released" placeholder="Enter released date">
-    <span th:if="${#fields.hasErrors('released')}" th:errors="*{released}" style="color: red;"></span>
-    <br><br>
-    <input type="submit" value="Add band">
-</form>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{partials/head}"></head>
+<nav th:replace="~{partials/navbar}"></nav>
+
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <h1 class="text-center pb-2">Add new album</h1>
+
+    <div class="container text-center">
+        <form method="GET" th:action="@{/album/process_new/{band_id}(band_id=${band_id})}" th:object="${album}">
+            <input type="hidden" th:field="*{id}"/>
+            Name: <input th:field="*{name}" type="text" name="name" placeholder="Enter album name">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+            <br><br>
+            Released: <input th:field="*{released}" type="date" name="released" placeholder="Enter released date">
+            <span th:if="${#fields.hasErrors('released')}" th:errors="*{released}" style="color: red;"></span>
+            <br><br>
+            <input type="submit" value="Add band">
+        </form>
+    </div>
+</main>
+<nav th:replace="~{partials/footer}"></nav>
 </body>
+
 </html>
+

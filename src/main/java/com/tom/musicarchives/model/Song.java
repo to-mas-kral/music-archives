@@ -3,6 +3,7 @@ package com.tom.musicarchives.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalTime;
@@ -28,6 +29,18 @@ public class Song {
     @NotNull
     @Column(name = "length", columnDefinition = "TIME")
     private LocalTime length;
+
+    @Positive
+    @Column(name = "order_in_album")
+    private int orderInAlbum;
+
+    public int getOrderInAlbum() {
+        return orderInAlbum;
+    }
+
+    public void setOrderInAlbum(int orderInAlbum) {
+        this.orderInAlbum = orderInAlbum;
+    }
 
     public void setId(int id) {
         this.id = id;

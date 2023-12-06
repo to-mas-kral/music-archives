@@ -1,28 +1,58 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${album.band.name}"></title>
-    <!--<link rel="stylesheet" th:href="@{/css/theme.css}" />-->
-</head>
-<body>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{partials/head}"></head>
+<nav th:replace="~{partials/navbar}"></nav>
 
-<a th:href="@{/band/detail/{id}(id=${album.band.id})}">
-    <button th:text="${album.band.name}"></button>
-</a>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
 
-<h1 th:text="${album.name}"></h1>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/band/detail/{id}(id=${album.band.id})}" class="text-center">
+                <span th:text="${album.band.name}" class="fs-1 text-center"></span>
+            </a>
+            <span class="fs-1"> &gt; </span>
+            <span th:text="${album.name}" class="text-center fs-1"></span>
 
-Released: <span th:text="${album.released}"></span><br>
+        </div>
+        <hr>
 
-<h1>Songs</h1>
+        <div class="text-center">
+            <h1 th:text="${album.name}"></h1>
+        </div>
 
-<div th:each="song : ${album.songs}">
-    <div>
-        <span th:text="${song.name}" th:href="@{/album/{id}(id=${album.id})}"></span>
-        <span th:text="${song.length}"></span>
+        <b>Released:</b> <span th:text="${album.released}"></span><br>
+
+        <h2>Songs:</h2>
+        <br>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Length</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="song : ${album.songs}">
+                <th scope="row" th:text="${song.orderInAlbum}"></th>
+                <td th:text="${song.name}"></td>
+                <td th:text="${song.length}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <a th:href="@{/song/new/{album_id}(album_id=${album.id})}">
+            <button class="btn btn-success">
+                Add new song
+            </button>
+        </a>
     </div>
-</div>
-
+</main>
+<nav th:replace="~{partials/footer}"></nav>
 </body>
 </html>
+

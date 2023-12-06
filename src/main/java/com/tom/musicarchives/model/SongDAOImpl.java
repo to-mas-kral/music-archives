@@ -23,7 +23,9 @@ public class SongDAOImpl implements SongDAO {
 
     @Override
     @Transactional
-    public void saveSong(Song song) {
+    public void saveSong(Song song, int album_id) {
+        Album album = entityManager.getReference(Album.class, album_id);
+        song.setAlbum(album);
         entityManager.persist(song);
     }
 
