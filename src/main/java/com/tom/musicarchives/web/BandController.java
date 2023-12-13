@@ -24,11 +24,6 @@ public class BandController {
         this.dao = dao;
     }
 
-    @GetMapping("/")
-    public RedirectView home(Model model) {
-        return new RedirectView("/bands");
-    }
-
     @GetMapping("/bands")
     public String allBands(Model model) {
         var bands = dao.getAllBands();
@@ -74,9 +69,9 @@ public class BandController {
     }
 
     @GetMapping("/band/process_new")
-    public RedirectView processForm(@Valid @ModelAttribute("band") Band band, BindingResult br, Model model) {
+    public String processForm(@Valid @ModelAttribute("band") Band band, BindingResult br, Model model) {
         if (br.hasErrors()) {
-            return new RedirectView("/band/new");
+            return "/band/band_new";
         }
 
         if (band.getId() == 0) {
@@ -85,7 +80,7 @@ public class BandController {
             dao.updateBand(band);
         }
 
-        return new RedirectView("/bands");
+        return "redirect:/bands";
     }
 
     @GetMapping("/band/search")
@@ -98,10 +93,8 @@ public class BandController {
 
     @GetMapping("/band/random")
     public String bandSearch(Model model) {
-        List<Band> bands = new ArrayList<Band>();
-        bands.add(dao.getRandomBand());
-        model.addAttribute("bands", bands);
+        var band = dao.getRandomBand();
 
-        return "band/bands_search_view";
+        return "redirect:/band/detail/" + band.getId();
     }
 }

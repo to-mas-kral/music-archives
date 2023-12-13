@@ -42,9 +42,9 @@ public class AlbumController {
     }
 
     @GetMapping("/album/process_new/{band_id}")
-    public RedirectView processForm(@Valid @ModelAttribute("album") Album album, BindingResult br, Model model, @PathVariable int band_id) {
+    public String processForm(@Valid @ModelAttribute("album") Album album, BindingResult br, Model model, @PathVariable int band_id) {
         if (br.hasErrors()) {
-            return new RedirectView("/bands");
+            return "album/album_new";
         }
 
         if (album.getId() == 0) {
@@ -53,6 +53,6 @@ public class AlbumController {
             dao.updateAlbum(album);
         }
 
-        return new RedirectView("/album/detail/" + album.getId());
+        return "redirect:/album/detail/" + album.getId();
     }
 }

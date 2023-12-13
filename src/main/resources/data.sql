@@ -65,3 +65,11 @@ VALUES (1, 7, 'Creeping Death', '00:06:35');
 
 INSERT INTO song (album_id, order_in_album, name, length)
 VALUES (1, 8, 'The Call of Ktulu', '00:08:53');
+
+
+--
+-- Users
+--
+
+INSERT INTO _users (role, email, password)
+VALUES (0, 'user@user.com', '$2a$10$b67iUefyn6trm.GfhuVaAOAQ599piXrkXVq5A2Icsej/mapSDJpvq')

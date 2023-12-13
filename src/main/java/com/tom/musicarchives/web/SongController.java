@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,9 +32,13 @@ public class SongController {
     }
 
     @GetMapping("/song/process_new/{album_id}")
-    public RedirectView addSong(@Valid @ModelAttribute("song") Song song, @PathVariable int album_id) {
+    public String addSong(Model model, @Valid @ModelAttribute("song") Song song, BindingResult br, @PathVariable int album_id) {
+        if (br.hasErrors()) {
+            return "song/song_new";
+        }
+
         dao.saveSong(song, album_id);
 
-        return new RedirectView("/album/detail/" + album_id);
+        return "redirect:/album/detail/" + album_id;
     }
 }
